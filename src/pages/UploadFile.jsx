@@ -46,7 +46,8 @@ const Uploadfile = () => {
                     } else {
                         const processingInfo = {
                             totalRows: result?.totalRows ? result?.totalRows : 0,
-                            rowsProcessed: result?.rowsProcessed ? result?.rowsProcessed : 0
+                            rowsProcessed: result?.rowsProcessed ? result?.rowsProcessed : 0,
+                            status: result?.status ? result?.status : 'processing'
                         }
                         const processedPErcentage = ((result?.rowsProcessed / result?.totalRows) * 100).toFixed(2)
                         setProcessedPercentage(processedPErcentage)
@@ -129,7 +130,7 @@ const Uploadfile = () => {
         }
     };
 
-
+    console.log('Processing info', processingInfo)
     return (
         <Layout className="site-layout">
             <Content className="site-layout-background" style={styles.content}>
@@ -148,6 +149,7 @@ const Uploadfile = () => {
                     }}
                 ></PageHeader>
                 {
+                    processingInfo.status !== 'cancelled' &&
                     isLoading &&
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                         <Spin size="large" />

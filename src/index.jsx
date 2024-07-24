@@ -5,8 +5,6 @@ import App from "./app"
 import "./style/app.less"
 import * as serviceWorker from "./serviceWorker"
 
-console.log("process env", process.env.NODE_ENV)
-
 ReactDOM.render(<App />, document.getElementById("root"))
 
 // If you want your app to work offline and load faster, you can change

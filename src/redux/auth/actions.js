@@ -8,6 +8,7 @@ export const login = (loginAdminData) => async (dispatch) => {
     type: actionTypes.LOADING_REQUEST,
     payload: { loading: true },
   });
+  console.log("LOGIN_DATA",loginAdminData);
   const data = await authService.login(loginAdminData);
 
   if (data.success === true) {

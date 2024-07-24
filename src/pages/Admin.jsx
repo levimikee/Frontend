@@ -4,6 +4,7 @@ import AdminCrudModule from "@/modules/AdminCrudModule";
 import AdminForm from "@/forms/AdminForm";
 
 export default function Admin() {
+  console.log('Admin');
   const entity = "admin";
   const searchConfig = {
     displayLabels: ["name", "surname"],

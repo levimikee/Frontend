@@ -4,8 +4,11 @@ import axios from "axios";
 import errorHandler from "@/request/errorHandler";
 import successHandler from "@/request/successHandler";
 import storePersist from "@/redux/storePersist";
-
 import { getCookie, setCookie, deleteCookie } from "./cookie";
+
+
+
+
 
 export const login = async (loginAdminData) => {
   try {
@@ -20,9 +23,27 @@ export const login = async (loginAdminData) => {
   }
 };
 
-export const logout = () => {
+export const logout = async () => {
+  const headersInstance = { [ACCESS_TOKEN_NAME]: getCookie(ACCESS_TOKEN_NAME) };
+  
+  const axiosInstance = axios.create({
+    baseURL: API_BASE_URL,
+    timeout: 30000,
+    headers: {
+      ...headersInstance,
+    },
+  }); 
+  try {
+    await axiosInstance.post(
+      API_BASE_URL + "logout",
+      {}
+    );
+  } catch (error) {
+  }
   token.remove();
   storePersist.clear();
+  // redirect to login forcing a reload
+  window.location.href = "/"; 
 };
 
 export const token = {

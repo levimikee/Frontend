@@ -48,6 +48,22 @@ const DocumentsTable = ({ documents }) => {
         }
     };
 
+    const handleCancel = async (rowData) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}cancelprocessing/${rowData._id}`, {
+                method: 'GET'
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+            } else {
+                console.error('Error cancelling processing:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
+    };
+
     const columns = [
         {
             title: "Index",
@@ -109,6 +125,9 @@ const DocumentsTable = ({ documents }) => {
                         status === 'completed' ?
                             <Button type="primary" onClick={() => { handleDownload(record)}}>Download File</Button>
                             :
+                        status === 'cancelled' ?
+                            <span>Cancelled</span>
+                            :
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
 
                                 {
@@ -116,6 +135,7 @@ const DocumentsTable = ({ documents }) => {
                                         <>
                                             <Progress percent={record.processedPErcentage ? record.processedPErcentage : 0} size="small" />
                                             Processing {record.rowsProcessed}/{record.totalRows}
+                                            <Button type="primary" style={{ marginTop: '10px' }} onClick={() => { handleCancel(record)}}>Cancel</Button>
                                         </>
                                         :
                                         <Spin size="small" />
@@ -137,6 +157,7 @@ const DocumentsTable = ({ documents }) => {
     //Map events array to create table data
     const tableData = documents.map((document, index) => {
         return {
+            _id: document._id,
             index: index.toString(),
             uploadeddate: document.createdAt,
             completeddate: document.completedAt,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button, Menu } from "antd";
 import {
@@ -29,67 +29,71 @@ function AddNewItem({ config }) {
     </Button>
   );
 }
-function DropDownRowMenu({ row }) {
+
+export default function AdminCrudModule({ config }) {
   const dispatch = useDispatch();
   const { crudContextAction } = useCrudContext();
-  const {
-    panel,
-    collapsedBox,
-    modal,
-    advancedBox,
-    readBox,
-    editBox,
-  } = crudContextAction;
-  const item = useSelector(selectItemById(row._id));
-  const Show = () => {
-    dispatch(crud.currentItem(item));
+  const { panel, collapsedBox, modal, advancedBox, readBox, editBox } =
+    crudContextAction;
+
+  const show = (row) => {
+    dispatch(crud.currentItem(row));
     panel.open();
     collapsedBox.open();
     readBox.open();
   };
-  function Edit() {
-    dispatch(crud.currentAction("update", item));
+  const edit = (row) => {
+    dispatch(crud.currentAction("update", row));
     editBox.open();
     panel.open();
     collapsedBox.open();
-  }
-  function UpdatePassword() {
-    dispatch(crud.currentAction("update", item));
+  };
+  const updatePassword = (row) => {
+    dispatch(crud.currentAction("update", row));
     advancedBox.open();
     panel.open();
     collapsedBox.open();
-  }
-  function Delete() {
-    dispatch(crud.currentAction("delete", item));
+  };
+  const deleteItem = (row) => {
+    dispatch(crud.currentAction("delete", row));
     modal.open();
-  }
-  return (
-    <Menu style={{ minWidth: 130 }}>
-      <Menu.Item key={`${uniqueId()}`} icon={<EyeOutlined />} onClick={Show}>
-        Show
-      </Menu.Item>
-      <Menu.Item key={`${uniqueId()}`} icon={<EditOutlined />} onClick={Edit}>
-        Edit
-      </Menu.Item>
-      <Menu.Item
-        key={`${uniqueId()}`}
-        icon={<LockOutlined />}
-        onClick={UpdatePassword}
-      >
-        Update Password
-      </Menu.Item>
-      <Menu.Item
-        key={`${uniqueId()}`}
-        icon={<DeleteOutlined />}
-        onClick={Delete}
-      >
-        Delete
-      </Menu.Item>
-    </Menu>
-  );
-}
+  };
 
-export default function AdminCrudModule({ config }) {
+  function DropDownRowMenu({ row }) {
+    return (
+      <Menu style={{ minWidth: 130 }}>
+        <Menu.Item
+          key={`${uniqueId()}`}
+          icon={<EyeOutlined />}
+          onClick={() => show(row)}
+        >
+          Show
+        </Menu.Item>
+        <Menu.Item
+          key={`${uniqueId()}`}
+          icon={<EditOutlined />}
+          onClick={() => edit(row)}
+        >
+          Edit
+        </Menu.Item>
+        <Menu.Item
+          key={`${uniqueId()}`}
+          icon={<LockOutlined />}
+          onClick={() => updatePassword(row)}
+        >
+          Update Password
+        </Menu.Item>
+        <Menu.Item
+          key={`${uniqueId()}`}
+          icon={<DeleteOutlined />}
+          onClick={() => deleteItem(row)}
+        >
+          Delete
+        </Menu.Item>
+      </Menu>
+    );
+  }
+
   return (
     <DataTable
       config={config}

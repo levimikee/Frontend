@@ -38,6 +38,7 @@ const UploadFile = lazy(() =>
 
 export default function AppRouter() {
   const location = useLocation();
+  console.log('AppRouter here location', location);
   return (
     <Suspense fallback={<PageLoader />}>
       <AnimatePresence exitBeforeEnter initial={false}>
@@ -46,6 +47,12 @@ export default function AppRouter() {
             path="/"
             component={UploadFile}
             render={() => <Redirect to="/upload-file" />}
+            exact
+          />
+          <PrivateRoute
+            path="/upload-file"
+            component={UploadFile}
+            exact
           />
           <PrivateRoute component={Customer} path="/customer" exact />
           <PrivateRoute

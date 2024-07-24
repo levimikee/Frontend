@@ -153,7 +153,6 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
 
   const onSelectChange = (selectedKeys, selectedRows) => {
     setSelectedRowKeys(selectedKeys);
-    console.log("selectedRowKeys changed: ", selectedRowKeys);
   };
 
   const rowSelection = {

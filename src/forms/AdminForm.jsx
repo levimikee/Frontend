@@ -14,7 +14,7 @@ export default function AdminForm({ isUpdateForm = false }) {
           },
         ]}
       >
-        <Input autoComplete="off" />
+        <Input autoComplete="off" disabled={true} />
       </Form.Item>
       {!isUpdateForm && (
         <Form.Item

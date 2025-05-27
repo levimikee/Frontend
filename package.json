@@ -45,11 +45,12 @@
   "devDependencies": {
     "@craco/craco": "^6.1.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+    "@types/minimatch": "^5.1.2",
     "craco-alias": "^3.0.1",
     "craco-less": "^1.17.1",
     "cross-env": "^7.0.3",
     "react-reconciler": "^0.26.2",
-    "react-refresh": "^0.10.0"
+    "react-refresh": "^0.9.0"
   },
   "engines": {
     "node": "16.x",

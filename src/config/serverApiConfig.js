@@ -6,7 +6,7 @@ console.log(
 export const BACKEND_BASE_URL = 
 process.env.NODE_ENV == "production" ||
 process.env.REACT_APP_DEV_REMOTE == "remote"
-  ? "https://backend-4jkdr.ondigitalocean.app/"
+  ? "http://localhost:8888/"
   : "http://localhost:8888/"
 
 export const API_BASE_URL = BACKEND_BASE_URL + "api/";
